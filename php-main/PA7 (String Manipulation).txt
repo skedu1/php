@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Manipulation</title>
+</head>
+<body>
+    <h2>String Manipulation</h2>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+    <label for="string">Enter a string: </label>
+    <input type="text" name="input_string" id="string" required>
+    <br><br>
+    <input type="submit" name="get_length" value="Get Length">
+    <input type="submit" name="reverse" value="Reverse">
+    <input type="submit" name="uppercase" value="Uppercase">
+    <input type="submit" name="lowercase" value="Lowercase">
+    <input type="submit" name="replace" value="Replace">
+    <input type="submit" name="check_palindrome" value="Check Palindrome">
+    <input type="submit" name="shuffle" value="Shuffle">
+    <input type="submit" name="word_count" value="Word Count">
+
+</form>
+<?php
+if($_SERVER["REQUEST_METHOD"]== "POST"){
+    $input_string = $_POST["input_string"];
+    if(isset($_POST["get_length"])){
+        echo "Length of the string is: ".strlen($input_string);
+    }
+    elseif(isset($_POST["reverse"])){
+        echo "Reversed string is: ".strrev($input_string);
+    }elseif(isset($_POST["uppercase"])){
+        echo "Uppercase string is: ".strtoupper($input_string);
+    }elseif(isset($_POST["lowercase"])){
+        echo "Lowercase string is: ".strtolower($input_string);
+    }
+    elseif(isset($_POST["replace"])){
+        echo "Replaced string is: ".str_replace("a","x",$input_string);
+    }
+    elseif(isset($_POST["check_palindrome"])){
+        if($input_string == strrev($input_string)){
+            echo "String is a palindrome.";
+        }else{
+            echo "String is not a palindrome.";
+        }
+    }
+    elseif(isset($_POST["shuffle"])){
+        echo "Shuffled string is: ".str_shuffle($input_string);
+    }
+    elseif(isset($_POST["word_count"])){
+        echo "Word Count: ".str_word_count($input_string);
+    }
+
+
+}
+
+?>
+
+</body>
+</html>

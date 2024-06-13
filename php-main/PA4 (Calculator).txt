@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+</head>
+<body>
+  <h1>PHP Calculator</h1>
+  <form method="POST" action="">
+    <label for="num1">Enter first number:</label>
+    <input type="text" name="num1" id="num1"><br>
+    <label for="num2">Enter second number:</label>
+    <input type="text" name="num2" id="num2"><br>
+    <label for="operator">Operator:</label>
+    <select name="operator" id="operator">
+    <option value="">Select Operator</option>
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+    </select><br>
+    <input type="submit" value="Calculate">
+  </form>
+  
+  <?php
+  function calculate($num1, $num2, $operator) {
+    switch ($operator) {
+      case "+":
+        return $num1 + $num2;
+      case "-":
+        return $num1 - $num2;
+      case "*":
+        return $num1 * $num2;
+      case "/":
+        if ($num2 == 0) {
+          return "Division by zero is undefined.";
+        } else {
+          return $num1 / $num2;
+        }
+      default:
+        return "<p class='error'>Invalid Operator.</p>";
+    }
+  }
+ 
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $num1 = $_POST["num1"];
+    $num2 = $_POST["num2"];
+    $operator = $_POST["operator"];
+    
+    if (!is_numeric($num1) || !is_numeric($num2)) {
+      echo "<p class='error'>Invalid input. Please enter valid numbers.</p>";
+    } else {
+      $result = calculate($num1, $num2, $operator);
+      echo "<p>The result is: $result</p>";
+    }
+  }
+  ?>
+</body>
+</html>

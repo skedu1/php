@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Armstrong Number Checker</title>
+</head>
+<body>
+    <h1>Armstrong Number Checker</h1>
+    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <label for="number">Enter a number:</label>
+        <input type="text" id="number" name="number" required>
+        <button type="submit">Check</button>
+    </form>
+    
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $number = $_POST["number"];
+        echo "<h3>Results:</h3>";
+        if (!is_numeric($number)) {
+            echo "<p>Please enter a valid positive integer.</p>";
+        } else {
+            $number = (int)$number;
+            $originalNumber = $number;
+            $sum = 0;
+
+            while ($number > 0) {
+                $digit = $number % 10;
+                $sum += $digit ** strlen((string)$originalNumber);
+                $number = floor($number / 10);
+            }
+
+            if ($sum == $originalNumber) {
+                echo "<p>The number $originalNumber is an Armstrong number.</p>";
+                echo "<p>Armstrong numbers from 1 to $originalNumber:</p>";
+
+                for ($i = 1; $i <= $originalNumber; $i++) {
+                    $temp = $i;
+                    $tempSum = 0;
+
+                    while ($temp > 0) {
+                        $digit = $temp % 10;
+                        $tempSum += $digit ** strlen((string)$i);
+                        $temp = floor($temp / 10);
+                    }
+
+                    if ($tempSum == $i) {
+                        echo "$i, ";
+                    }
+                }
+            } else {
+                echo "The number $originalNumber is not an Armstrong number.";
+            }
+        }
+    }
+    ?>
+
+   
+</body>
+</html>
